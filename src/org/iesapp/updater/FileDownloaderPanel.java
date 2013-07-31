@@ -98,7 +98,7 @@ public class FileDownloaderPanel extends javax.swing.JPanel implements Observer 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,7 +153,7 @@ public class FileDownloaderPanel extends javax.swing.JPanel implements Observer 
          }
          jProgressBar1.setValue(getFileDownloader().getProgress());
          jProgressBar1.setStringPainted(true);
-         jProgressBar1.setString(getFileDownloader().getProgress()+"%");
+         jProgressBar1.setString(getFileDownloader().getTimeRemaining());
         }
         else if(getFileDownloader().getStatus()==FileDownloader.COMPLETE)
         {

@@ -44,10 +44,17 @@ public class RemoteUpdater {
         return data.substring(data.indexOf("<version>")+9, data.indexOf("</version>"));
     }
     
-    public String getWhatsNew() throws Exception
+    public String getWhatsNew()
     {
-        String data = getDataVersion();
-        return data.substring(data.indexOf("<history>")+9, data.indexOf("</history>"));
+        String history = "";
+        try {
+            String data = getDataVersion();
+            history = data.substring(data.indexOf("<history>")+9, data.indexOf("</history>"));
+        } catch (Exception ex) {
+            Logger.getLogger(RemoteUpdater.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        return history;
     }
     
     public RemoteRepository getModulesRepo()

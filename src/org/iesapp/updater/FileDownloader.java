@@ -41,6 +41,7 @@ public class FileDownloader extends Observable implements Runnable {
     private final String urlLink;
     private File outputFile;
     private int progress;
+    private double averageRate = 0.0;
    
    
    public FileDownloader(String urlLink, File outputFile)
@@ -147,6 +148,8 @@ public class FileDownloader extends Observable implements Runnable {
            rndFile.seek(downloadedBytes);
            input  = http.getInputStream();
            
+           long start = System.currentTimeMillis();
+           
            while(status == DOWNLOADING)
            {
                byte buffer[];
@@ -166,6 +169,14 @@ public class FileDownloader extends Observable implements Runnable {
                
                rndFile.write(buffer, 0, read);
                downloadedBytes += read;
+               long end = System.currentTimeMillis();
+               if(end > start)
+               { 
+                   // Rate in Bytes / second
+                   double currentRate = downloadedBytes * 1000 / (end - start); 
+                   averageRate = (averageRate + currentRate)/2;
+               }
+               
                progress = Math.round(downloadedBytes*100/(1f*size));
                stateChanged();
                
@@ -240,8 +251,29 @@ public class FileDownloader extends Observable implements Runnable {
         return size + " B";
     }
 
-    private double roundDecimals(float val, int dec) {
+    private double roundDecimals(double val, int dec) {
         double pow = Math.pow(10, dec);
         return Math.round(val*pow)/pow;
     }
+
+    public String getTimeRemaining() {
+        String output =  "";
+        long remainingBytes = size - downloadedBytes;
+        long seconds = Math.round( remainingBytes/averageRate );
+        if(seconds>0)
+        {
+            output = StringUtils.displayComplexTime(seconds);
+        }
+        return output;
+    }
+
+    /**
+     * Returns average download rate in KB/s
+     * @return 
+     */
+    public double getDownloadRate()
+    {
+        return roundDecimals(averageRate/1000f,1);
+    }
+    
 }

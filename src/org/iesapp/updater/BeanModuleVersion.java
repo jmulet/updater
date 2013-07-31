@@ -9,9 +9,9 @@ package org.iesapp.updater;
  * @author Josep
  */
 public class BeanModuleVersion {
-    protected String version;
-    protected String fileName;
-    protected String whatsnew;
+    protected String version="";
+    protected String fileName="";
+    protected String whatsnew="";
 
     public String getVersion() {
         return version;

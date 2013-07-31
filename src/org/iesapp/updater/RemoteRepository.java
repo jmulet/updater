@@ -6,6 +6,7 @@
 package org.iesapp.updater;
 
 import java.util.ArrayList;
+import org.iesapp.util.StringUtils;
 
 /**
  *
@@ -106,5 +107,34 @@ public class RemoteRepository {
             }
         }
         return last;
+    }
+    
+    public String getLastDistroVersion()
+    {
+        String version = "0.0";
+        for(BeanDistroRepo bdr: distros)
+        {
+            if(StringUtils.compare(bdr.getVersion(), version)>0)
+            {
+                version = bdr.getVersion();
+            }
+                
+        }
+        return version;
+    }
+    
+    public BeanDistroRepo getLastDistroBean()
+    {
+        String version = "0.0";
+        BeanDistroRepo pointer = null;
+        for(BeanDistroRepo bdr: distros)
+        {
+            if(StringUtils.compare(bdr.getVersion(), version)>0)
+            {
+                version = bdr.getVersion();
+                pointer = bdr;
+            }   
+        }
+        return pointer;
     }
 }

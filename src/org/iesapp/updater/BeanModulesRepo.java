@@ -15,9 +15,9 @@ import org.w3c.dom.NodeList;
  * @author Josep
  */
 public class BeanModulesRepo {
-    protected String className;
-    protected String name;
-    protected String latestVersion;
+    protected String className="";
+    protected String name="";
+    protected String latestVersion="";
     protected final ArrayList<BeanModuleVersion> moduleVersions = new ArrayList<BeanModuleVersion>();
 
     BeanModulesRepo(Node item, NodeList moduleVersionList) {
